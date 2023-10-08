@@ -1,10 +1,15 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Category, CategoryParams, Result } from '../../types/Category';
+import {
+  Category,
+  CategoryParams,
+  Result,
+  Results,
+} from '../../types/Category';
 
-export const baseUrl = 'http://127.0.0.1:3000';
+export const baseUrl = 'http://localhost:2000';
 const endPointUrl = '/categories';
 
-function parseQueryParams(params: CategoryParams) {
+/* function parseQueryParams(params: CategoryParams) {
   const query = new URLSearchParams();
   if (params.page) {
     query.append('page', params.page.toString());
@@ -20,11 +25,15 @@ function parseQueryParams(params: CategoryParams) {
   }
 
   return query.toString();
-}
+} */
 
-function getCategories({ page = 1, perPage = 20, search = '' }) {
+/* function getCategories({ page = 1, perPage = 20, search = '' }) {
   const params = { page, perPage, search, isActive: true };
   return `${endPointUrl}?${parseQueryParams(params)}`;
+} */
+
+function getCategories() {
+  return endPointUrl;
 }
 
 function deleteCategoryMutation(category: Category) {
@@ -59,7 +68,7 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: baseUrl }),
   tagTypes: ['categories'],
   endpoints: (builder) => ({
-    getCategories: builder.query<Category[], CategoryParams>({
+    getCategories: builder.query<Results, CategoryParams>({
       query: getCategories,
       providesTags: ['categories'],
     }),

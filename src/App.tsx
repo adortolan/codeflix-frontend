@@ -9,6 +9,7 @@ import CategoryList from './features/categories/ListCategory';
 import CategoryCreate from './features/categories/CreateCategory';
 import CategoryEdit from './features/categories/EditCategory';
 import { SnackbarProvider } from 'notistack';
+import ListCastMembers from './features/cast/ListCastMembers';
 
 function App() {
   return (
@@ -30,10 +31,13 @@ function App() {
             <h1>Welcome to react router</h1>
             <Routes>
               <Route path="/" element={<CategoryList />} />
+              {/* Category */}
               <Route path="/categories" element={<CategoryList />} />
               <Route path="/categories/create" element={<CategoryCreate />} />
               <Route path="/categories/edit/:id" element={<CategoryEdit />} />
 
+              {/* CastMembers */}
+              <Route path="/castmembers" element={<ListCastMembers />} />
               <Route
                 path="*"
                 element={

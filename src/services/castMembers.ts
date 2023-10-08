@@ -1,10 +1,10 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { CastMember, Result } from '../types/CastMembers';
+import { CastMember, CastMembersParams, Result } from '../types/CastMembers';
 
 const endPointUrl = '/cast_members';
 
-/* function parseQueryParams(params: CastMembersParams) {
+function parseQueryParams(params: CastMembersParams) {
   const query = new URLSearchParams();
   if (params.page) {
     query.append('page', params.page.toString());
@@ -20,7 +20,12 @@ const endPointUrl = '/cast_members';
   }
 
   return query.toString();
-} */
+}
+
+function getCastMembers({ page = 1, perPage = 20, search = '' }) {
+  const params = { page, perPage, search, isActive: true };
+  return `${endPointUrl}?${parseQueryParams(params)}`;
+}
 
 function updateCastMembersMutation(castMembers: CastMember) {
   return {
@@ -48,7 +53,7 @@ export const castMembersApi = createApi({
   tagTypes: ['castMembers'],
   endpoints: (build) => ({
     getCastMembers: build.query({
-      query: () => '/cast_members',
+      query: getCastMembers,
       providesTags: ['castMembers'],
     }),
     addCastMembers: build.mutation<Result, CastMember>({

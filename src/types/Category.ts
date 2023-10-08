@@ -13,11 +13,11 @@ export interface Result {
 export interface Category {
   id: string;
   name: string;
-  description: null | string;
-  is_active: boolean;
   deleted_at: null | string;
+  is_active: boolean;
   created_at: string;
   updated_at: string;
+  description: null | string;
 }
 
 export interface Links {

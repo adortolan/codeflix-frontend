@@ -13,6 +13,7 @@ export default function CategoryEdit() {
 
   const { data: category, isFetching } = apiSlice.useGetCategoryQuery({ id });
   const [updateCategory, status] = apiSlice.useUpdateCategoryMutation();
+  console.log(category);
 
   // const category = useAppSelector((state) => selectCategoryById(state, id));
 
