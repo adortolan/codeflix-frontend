@@ -2,7 +2,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { CastMember, CastMembersParams, Result } from '../types/CastMembers';
 
-const endPointUrl = '/cast_members';
+const endPointUrl = '/castmembers';
 
 function parseQueryParams(params: CastMembersParams) {
   const query = new URLSearchParams();
@@ -49,7 +49,7 @@ function getCastMember({ id }: { id: string }) {
 // Define a service using a base URL and expected endpoints
 export const castMembersApi = createApi({
   reducerPath: 'castMembersApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://127.0.0.1:3000' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:2000' }),
   tagTypes: ['castMembers'],
   endpoints: (build) => ({
     getCastMembers: build.query({

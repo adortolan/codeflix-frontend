@@ -1,10 +1,13 @@
-/* import { useEffect, useState } from 'react';
 import { useGetCastMembersQuery } from '../../services/castMembers';
+/* import { useEffect, useState } from 'react';
 import { GridFilterModel } from '@mui/x-data-grid';
 import { Search } from '@mui/icons-material';
 import { Typography } from '@mui/material';
  */
 const ListCastMembers = () => {
+  const { data } = useGetCastMembersQuery({ page: 1, perPage: 1, search: '' });
+  console.log(data);
+
   /* const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const [perPage, setPerPage] = useState(10);

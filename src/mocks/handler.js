@@ -47,12 +47,69 @@ const categories = {
   },
 };
 
+const cast_members = {
+  data: [
+    {
+      id: '0ce68ddd-4981-4ee2-a23b-a01452b96b01',
+      name: 'Maggio',
+      type: 1,
+      deleted_at: null,
+      created_at: '2022-08-15T10:59:09+0000',
+      updated_at: '2022-08-15T10:59:09+0000',
+    },
+    {
+      id: '0ce68ddd-4981-4ee2-a23b-a01452b96b02',
+      name: 'Stanton',
+      type: 1,
+      deleted_at: null,
+      created_at: '2022-08-15T10:59:09+0000',
+      updated_at: '2022-08-15T10:59:09+0000',
+    },
+    {
+      id: '0ce68ddd-4981-4ee2-a23b-a01452b96b03',
+      name: 'Ruiz',
+      type: 2,
+      deleted_at: null,
+      created_at: '2022-08-15T10:59:09+0000',
+      updated_at: '2022-08-15T10:59:09+0000',
+    },
+    {
+      id: '0ce68ddd-4981-4ee2-a23b-a01452b96bxx',
+      name: 'AddCasMembers',
+      type: 1,
+      deletedAt: null,
+      createdAt: '2022-08-15T10:59:09+0000',
+      updatedAt: '2022-08-15T10:59:09+0000',
+    },
+  ],
+  links: {
+    first: 'http://localhost:8000/api/categories?page1',
+    last: 'http://localhost:8000/api/categories?page7',
+    prev: null,
+    next: 'http://localhost:8000/api/categories?page2',
+  },
+  meta: {
+    current_page: 1,
+    from: 1,
+    last_page: 15,
+    path: 'http://localhost:8000/api/categories',
+    per_page: 15,
+    to: 15,
+    total: 100,
+  },
+};
+
+const urlCategory = 'http://localhost:2000/categories';
+const urlCastMembers = 'http://localhost:2000/castmembers';
+
 export const handlers = [
-  rest.get('http://localhost:2000/categories', (req, res, ctx) => {
+  /* LIST ALL */
+  rest.get(urlCategory, (req, res, ctx) => {
     return res(ctx.json(categories));
   }),
 
-  rest.get('http://localhost:2000/categories/:id', (req, res, ctx) => {
+  /* LIST ONE */
+  rest.get(urlCategory + '/:id', (req, res, ctx) => {
     const id = req.params.id;
 
     const category = categories.data.find((cat) => cat.id === id);
@@ -62,5 +119,122 @@ export const handlers = [
     } else {
       return res(ctx.json({ message: 'No category' }));
     }
+  }),
+
+  /* CREATE */
+  rest.post(urlCategory, async (req, res, ctx) => {
+    const category = await req.json();
+
+    categories.data.push(category);
+
+    return res(
+      ctx.status(201),
+      ctx.json({
+        id: category.id,
+        category,
+      }),
+    );
+  }),
+
+  /* UPDATE */
+  rest.put(urlCategory + '/edit/:id', async (req, res, ctx) => {
+    const id = req.params.id;
+
+    const newCategory = await req.json();
+
+    const category = categories.data.find((cat) => cat.id === id);
+    category.name = newCategory.name;
+    category.description = newCategory.description;
+    category.is_active = newCategory.is_active;
+
+    return res(
+      ctx.status(201),
+      ctx.json({
+        id: category.id,
+        category,
+      }),
+    );
+  }),
+
+  /* DELETE */
+  rest.delete(urlCategory + '/:id', async (req, res, ctx) => {
+    const id = req.params.id;
+    const categoryIndex = categories.data.findIndex((cat) => cat.id === id);
+
+    categories.data.splice(categoryIndex, 1);
+
+    return res(
+      ctx.json({
+        message: 'Delete category sucessfully',
+      }),
+    );
+  }),
+
+  /*  CASTMEMBERS */
+  /* LIST ALL */
+  rest.get(urlCastMembers, (req, res, ctx) => {
+    return res(ctx.json(cast_members));
+  }),
+
+  /* LIST ONE */
+  rest.get(urlCastMembers + '/:id', (req, res, ctx) => {
+    const id = req.params.id;
+
+    const cast = cast_members.data.find((cast) => cast.id === id);
+
+    if (cast) {
+      return res(ctx.json(cast));
+    } else {
+      return res(ctx.json({ message: 'No cast members' }));
+    }
+  }),
+
+  /* CREATE */
+  rest.post(urlCastMembers, async (req, res, ctx) => {
+    const cast = await req.json();
+
+    categories.data.push(cast);
+
+    return res(
+      ctx.status(201),
+      ctx.json({
+        id: cast.id,
+        cast,
+      }),
+    );
+  }),
+
+  /* UPDATE */
+  rest.put(urlCastMembers + '/edit/:id', async (req, res, ctx) => {
+    const id = req.params.id;
+
+    const newCast = await req.json();
+
+    const cast = cast_members.data.find((cast) => cast.id === id);
+    cast.name = newCast.name;
+    cast.description = newCast.description;
+    cast.is_active = newCast.is_active;
+
+    return res(
+      ctx.status(201),
+      ctx.json({
+        id: newCast.id,
+        cast_members,
+      }),
+    );
+  }),
+
+  /* DELETE */
+  rest.delete(urlCastMembers + '/:id', async (req, res, ctx) => {
+    const id = req.params.id;
+    const castIndex = cast_members.data.findIndex((cat) => cat.id === id);
+
+    categories.data.splice(castIndex, 1);
+
+    return res(
+      ctx.json({
+        message: 'Delete cast members sucessfully',
+      }),
+    );
   }),
 ];

@@ -53,7 +53,7 @@ function createCategoryMutation(category: Category) {
 
 function updateCategoryMutation(category: Category) {
   return {
-    url: `${endPointUrl}/${category.id}`,
+    url: `${endPointUrl}/edit/${category.id}`,
     method: 'PUT',
     body: category,
   };
