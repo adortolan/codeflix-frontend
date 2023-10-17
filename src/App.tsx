@@ -10,6 +10,7 @@ import CategoryCreate from './features/categories/CreateCategory';
 import CategoryEdit from './features/categories/EditCategory';
 import { SnackbarProvider } from 'notistack';
 import ListCastMembers from './features/cast/ListCastMembers';
+import { CreateCastMember } from './features/cast/CreateCastMembers';
 
 function App() {
   return (
@@ -38,6 +39,10 @@ function App() {
 
               {/* CastMembers */}
               <Route path="/castmembers" element={<ListCastMembers />} />
+              <Route
+                path="/castmembers/create"
+                element={<CreateCastMember />}
+              />
               <Route
                 path="*"
                 element={

@@ -193,7 +193,7 @@ export const handlers = [
   rest.post(urlCastMembers, async (req, res, ctx) => {
     const cast = await req.json();
 
-    categories.data.push(cast);
+    cast_members.data.push(cast);
 
     return res(
       ctx.status(201),
@@ -229,7 +229,7 @@ export const handlers = [
     const id = req.params.id;
     const castIndex = cast_members.data.findIndex((cat) => cat.id === id);
 
-    categories.data.splice(castIndex, 1);
+    cast_members.data.splice(castIndex, 1);
 
     return res(
       ctx.json({

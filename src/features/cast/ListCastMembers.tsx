@@ -1,48 +1,84 @@
-import { useGetCastMembersQuery } from '../../services/castMembers';
-/* import { useEffect, useState } from 'react';
+import {
+  useGetCastMembersQuery,
+  useDeleteCastMemberMutation,
+} from '../../services/castMembers';
+import { useEffect, useState } from 'react';
 import { GridFilterModel } from '@mui/x-data-grid';
-import { Search } from '@mui/icons-material';
-import { Typography } from '@mui/material';
- */
+import { Box, Button, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { CastMembersTable } from '../../components/CastMembersTable';
+import { enqueueSnackbar } from 'notistack';
+
 const ListCastMembers = () => {
-  const { data } = useGetCastMembersQuery({ page: 1, perPage: 1, search: '' });
-  console.log(data);
-
-  /* const [page, setPage] = useState(1);
-  const [search, setSearch] = useState('');
-  const [perPage, setPerPage] = useState(10);
-  const [rownsPerPage, setRowsPerPage] = useState([10, 20, 50, 100]);
-  const options = { page, perPage, search };
-
+  const [options, setOptions] = useState({
+    page: 1,
+    search: '',
+    perPage: 10,
+    rowsPerPage: [10, 20, 30],
+  });
   const { data, isFetching, error } = useGetCastMembersQuery(options);
+  const [deleteCastMember, deleteCastMemberStatus] =
+    useDeleteCastMemberMutation();
 
-  function handleOnPageChange(page: number) {
-    setPage(page + 1);
+  async function handleDeleteCastMember(id: string) {
+    await deleteCastMember({ id });
   }
 
-  function handleOnPageSizeChange(perPage: number) {}
+  function handleOnPageChange(page: number) {
+    setOptions({ ...options, page: page + 1 });
+  }
+
+  function handleOnPageSizeChange(perPage: number) {
+    setOptions({ ...options, perPage: perPage });
+  }
 
   function handleFilterChange(filterModel: GridFilterModel) {
     if (filterModel.quickFilterValues?.length) {
       const search = filterModel.quickFilterValues.join('');
-      options.search = search;
-      setSearch(search);
+      return setOptions({ ...options, search });
     }
 
-    return setSearch('');
+    return setOptions({ ...options, search: '' });
   }
 
   useEffect(() => {
-    if (error) {
-      console.log(error);
+    if (deleteCastMemberStatus.isSuccess) {
+      enqueueSnackbar('Cast member deleted', { variant: 'success' });
     }
-  }, [error]);
+    if (deleteCastMemberStatus.isError) {
+      enqueueSnackbar('Cast member not deleted', { variant: 'error' });
+    }
+  }, [deleteCastMemberStatus, enqueueSnackbar]);
 
   if (error) {
     return <Typography variant="h2">Error!</Typography>;
   }
- */
-  return <div>ListCastMembers</div>;
+
+  return (
+    <Box maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      <Box display="flex" justifyContent="flex-end">
+        <Button
+          variant="contained"
+          color="secondary"
+          component={Link}
+          to="/castmembers/create"
+          style={{ marginBottom: '1rem' }}
+        >
+          New Cast Members
+        </Button>
+      </Box>
+      <CastMembersTable
+        data={data}
+        perPage={options.perPage}
+        isFetching={isFetching}
+        rowsPerPage={options.rowsPerPage}
+        handleDelete={handleDeleteCastMember}
+        handleOnPageChange={handleOnPageChange}
+        handleOnPageSizeChange={handleOnPageSizeChange}
+        handleFilterChange={handleFilterChange}
+      />
+    </Box>
+  );
 };
 
 export default ListCastMembers;

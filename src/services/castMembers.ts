@@ -4,6 +4,15 @@ import { CastMember, CastMembersParams, Result } from '../types/CastMembers';
 
 const endPointUrl = '/castmembers';
 
+export const initialState: CastMember = {
+  id: crypto.randomUUID(),
+  name: '',
+  type: 1,
+  created_at: '',
+  updated_at: '',
+  deleted_at: null,
+};
+
 function parseQueryParams(params: CastMembersParams) {
   const query = new URLSearchParams();
   if (params.page) {
@@ -35,10 +44,10 @@ function updateCastMembersMutation(castMembers: CastMember) {
   };
 }
 
-function deleteCastMemberMutation(castMember: CastMember) {
+function deleteCastMember({ id }: { id: string }) {
   return {
-    url: `${endPointUrl}/${castMember.id}`,
     method: 'DELETE',
+    url: `${endPointUrl}/${id}`,
   };
 }
 
@@ -58,7 +67,7 @@ export const castMembersApi = createApi({
     }),
     addCastMembers: build.mutation<Result, CastMember>({
       query: (body) => ({
-        url: '/cast_members',
+        url: '/castmembers',
         method: 'POST',
         body,
       }),
@@ -68,7 +77,7 @@ export const castMembersApi = createApi({
       invalidatesTags: ['castMembers'],
     }),
     deleteCastMember: build.mutation<Result, { id: string }>({
-      query: deleteCastMemberMutation,
+      query: deleteCastMember,
       invalidatesTags: ['castMembers'],
     }),
     getCastMember: build.query<CastMember, { id: string }>({
@@ -85,4 +94,5 @@ export const {
   useAddCastMembersMutation,
   useUpdateCastMemberMutation,
   useGetCastMemberQuery,
+  useDeleteCastMemberMutation,
 } = castMembersApi;
