@@ -71,6 +71,7 @@ export const castMembersApi = createApi({
         method: 'POST',
         body,
       }),
+      invalidatesTags: ['castMembers'],
     }),
     updateCastMember: build.mutation<Result, { id: string }>({
       query: updateCastMembersMutation,
