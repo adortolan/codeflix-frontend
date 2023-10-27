@@ -38,7 +38,7 @@ function getCastMembers({ page = 1, perPage = 20, search = '' }) {
 
 function updateCastMembersMutation(castMembers: CastMember) {
   return {
-    url: `${endPointUrl}/${castMembers.id}`,
+    url: `${endPointUrl}/edit/${castMembers.id}`,
     method: 'PUT',
     body: castMembers,
   };
