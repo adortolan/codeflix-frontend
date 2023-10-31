@@ -67,4 +67,22 @@ describe('CastMemberForm', () => {
       screen.getByRole('button', { name: 'Loading...' }),
     ).toBeInTheDocument();
   });
+
+  it('should be render with default', () => {
+    const prop = {
+      handleSubmit: jest.fn(),
+      handleChange: jest.fn(),
+      castMember: {
+        id: '1',
+        name: 'TEstes',
+        type: 1,
+        deleted_at: null,
+        created_at: '2021-10-01T00:00:00.000000Z',
+        updated_at: '2021-10-01T00:00:00.000000Z',
+      },
+    };
+
+    render(<CastMembersForm {...prop} />, { wrapper: BrowserRouter });
+    expect(screen.getByRole('button', { name: 'Save' })).toBeInTheDocument();
+  });
 });
