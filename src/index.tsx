@@ -1,7 +1,7 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { store } from './app/store';
+import { setupStore } from './app/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
@@ -10,6 +10,7 @@ import { worker } from './mocks/browser';
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
+const store = setupStore();
 
 if (process.env.NODE_ENV === 'development') {
   worker.start();
