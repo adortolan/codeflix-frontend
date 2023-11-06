@@ -5,11 +5,11 @@ import { CastMember, CastMembersParams, Result } from '../types/CastMembers';
 const endPointUrl = '/castmembers';
 
 export const initialState: CastMember = {
-  id: crypto.randomUUID(),
-  name: '',
+  id: '1122',
+  name: 'Teste',
   type: 1,
-  created_at: '',
-  updated_at: '',
+  created_at: '2022-08-15T10:59:09+0000',
+  updated_at: '2022-08-15T10:59:09+0000',
   deleted_at: null,
 };
 
