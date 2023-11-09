@@ -67,4 +67,23 @@ describe('CastMemberForm', () => {
       screen.getByRole('button', { name: 'Loading...' }),
     ).toBeInTheDocument();
   });
+
+  it('should render with default options', () => {
+    const props = {
+      handleSubmit: jest.fn(),
+      handleChange: jest.fn(),
+      castMember: {
+        id: '1',
+        name: 'TEstes',
+        type: 1,
+        deleted_at: null,
+        created_at: '2021-10-01T00:00:00.000000Z',
+        updated_at: '2021-10-01T00:00:00.000000Z',
+      },
+    };
+
+    render(<CastMembersForm {...props} />, { wrapper: BrowserRouter });
+
+    expect(screen.getByRole('textbox', { name: 'Name' })).toBeInTheDocument();
+  });
 });
