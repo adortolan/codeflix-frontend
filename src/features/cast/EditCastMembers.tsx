@@ -14,6 +14,7 @@ import { useParams } from 'react-router-dom';
 
 export const EditCastMember = () => {
   const id = useParams().id ?? '';
+
   const { data: castMember, isFetching } = useGetCastMemberQuery({ id });
   const [castMemberState, setCastMemberState] =
     useState<CastMember>(initialState);
