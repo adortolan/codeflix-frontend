@@ -125,6 +125,7 @@ export const handlers = [
   rest.post(urlCategory, async (req, res, ctx) => {
     const category = await req.json();
 
+    category.id = crypto.randomUUID();
     categories.data.push(category);
 
     return res(

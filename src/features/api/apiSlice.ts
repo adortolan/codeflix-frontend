@@ -45,7 +45,7 @@ function deleteCategoryMutation(category: Category) {
 
 function createCategoryMutation(category: Category) {
   return {
-    url: endPointUrl,
+    url: baseUrl + endPointUrl,
     method: 'POST',
     body: category,
   };
