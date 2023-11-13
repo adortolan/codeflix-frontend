@@ -21,8 +21,6 @@ const CategoryList = () => {
   const [deleteCategory, { error: deleteError, isSuccess: deleteSuccess }] =
     apiSlice.useDeleteCategoryMutation();
 
-  console.log(data);
-
   function handleOnPageChange(page: number) {
     setOptions({ ...options, page: page + 1 });
   }
