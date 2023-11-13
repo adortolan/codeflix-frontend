@@ -9,7 +9,7 @@ export default function CategoryCreate() {
   const [createCategory, status] = apiSlice.useCreateCategoryMutation();
   const [isDisabled, setIsDisabled] = useState(false);
   const [categoryState, setCategoryState] = useState<Category>({
-    id: crypto.randomUUID(),
+    id: '',
     name: '',
     deleted_at: '',
     is_active: false,
