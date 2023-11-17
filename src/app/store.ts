@@ -9,12 +9,14 @@ import counterReducer from '../features/counter/counterSlice';
 import categoriesReducer from '../features/categories/CategorySlice';
 import { apiSlice } from '../features/api/apiSlice';
 import { castMembersApi } from '../services/castMembers';
+import { genreApi } from '../services/GenreSlice';
 
 const rootReducer = combineReducers({
   counter: counterReducer,
   categories: categoriesReducer,
   [apiSlice.reducerPath]: apiSlice.reducer,
   [castMembersApi.reducerPath]: castMembersApi.reducer,
+  [genreApi.reducerPath]: genreApi.reducer,
 });
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
@@ -24,7 +26,8 @@ export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware()
         .concat(apiSlice.middleware)
-        .concat(castMembersApi.middleware),
+        .concat(castMembersApi.middleware)
+        .concat(genreApi.middleware),
   });
 };
 export type AppStore = ReturnType<typeof setupStore>;
