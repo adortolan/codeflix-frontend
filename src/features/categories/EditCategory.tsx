@@ -13,18 +13,15 @@ export default function CategoryEdit() {
 
   const { data: category, isFetching } = apiSlice.useGetCategoryQuery({ id });
   const [updateCategory, status] = apiSlice.useUpdateCategoryMutation();
-  console.log(category);
-
-  // const category = useAppSelector((state) => selectCategoryById(state, id));
 
   const [categoryState, setCategoryState] = useState<Category>({
-    id: '',
-    name: '',
+    id: '0ce68ddd-4981-4ee2-a23b-a01452b96b01',
+    name: 'Teste',
     deleted_at: '',
     is_active: false,
     created_at: '',
     updated_at: '',
-    description: '',
+    description: 'Description teste',
   });
 
   // const [isDisabled, setIsDisabled] = useState(false);
@@ -32,6 +29,7 @@ export default function CategoryEdit() {
   const { enqueueSnackbar } = useSnackbar();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    console.log('Handle');
     e.preventDefault();
     // dispatch(updateCategory(categoryState));
     await updateCategory(categoryState);
