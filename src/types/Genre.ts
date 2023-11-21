@@ -3,6 +3,7 @@ import { Category } from './Category';
 export interface Genres {
   data: Genre[];
   links: Links;
+  meta: Meta;
 }
 
 export interface Result {
