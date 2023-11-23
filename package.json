@@ -93,8 +93,7 @@
       "text"
     ],
     "collectCoverageFrom": [
-      "src/**/*.{ts,tsx,js,jsx}",
-      "!src/**/*.d.ts"
+      "src/**/*.{tsx,jsx}"
     ]
   }
 }
