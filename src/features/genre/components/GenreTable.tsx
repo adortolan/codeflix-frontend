@@ -10,6 +10,7 @@ import { Genres } from '../../../types/Genre';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Link } from 'react-router-dom';
 import { Box } from '@mui/system';
+import { isDisabled } from '@testing-library/user-event/dist/types/utils';
 
 type Props = {
   data: Genres | undefined;
