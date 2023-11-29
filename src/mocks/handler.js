@@ -275,7 +275,38 @@ export const handlers = [
   }),
 
   /* GENRES */
+  /* List all */
   rest.get(urlGenres, (req, res, ctx) => {
     return res(ctx.json(Genres));
+  }),
+
+  /* List one */
+  rest.get(urlGenres + '/:id', (req, res, ctx) => {
+    const id = req.params.id;
+    const genre = Genres.data.find((genre) => genre.id === id);
+    if (genre) {
+      return res(ctx.json(genre));
+    } else {
+      return res(ctx.json({ message: 'No genre' }));
+    }
+  }),
+
+  /* update */
+  rest.put(urlGenres + '/edit/:id', async (req, res, ctx) => {
+    const id = req.params.id;
+
+    const newGenre = await req.json();
+
+    const genre = Genres.data.find((genre) => genre.id === id);
+    genre.name = newGenre.name;
+    genre.categories = newGenre.categories;
+
+    return res(
+      ctx.status(201),
+      ctx.json({
+        id: genre.id,
+        genre,
+      }),
+    );
   }),
 ];

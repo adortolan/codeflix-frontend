@@ -56,7 +56,7 @@ function getGenre({ id }: { id: string }) {
 
 function updateGenreMutation(genre: GenrePayLoad) {
   return {
-    url: `${endPointUrl}/${genre.id}`,
+    url: `${endPointUrl}/edit/${genre.id}`,
     method: 'PUT',
     body: genre,
   };
