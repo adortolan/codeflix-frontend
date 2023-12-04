@@ -62,7 +62,7 @@ function updateGenreMutation(genre: GenrePayLoad) {
   };
 }
 
-function createGenreMutation(genre: GenrePayLoad) {
+function createGenreMutation(genre: Genre) {
   return { url: endPointUrl, method: 'POST', body: genre };
 }
 
@@ -82,7 +82,7 @@ export const genreApi = createApi({
       query: getGenres,
       providesTags: ['genres'],
     }),
-    createGenre: builder.mutation<Result, GenrePayLoad>({
+    createGenre: builder.mutation<Result, Genre>({
       query: createGenreMutation,
       invalidatesTags: ['genres'],
     }),

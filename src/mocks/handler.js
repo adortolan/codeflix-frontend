@@ -309,4 +309,25 @@ export const handlers = [
       }),
     );
   }),
+
+  rest.post(urlGenres, async (req, res, ctx) => {
+    const newGenre = await req.json();
+
+    Genres.data.push(newGenre);
+
+    return res(
+      ctx.delay(150),
+      ctx.status(201),
+      ctx.json({ id: newGenre.id, Genres }),
+    );
+  }),
+
+  rest.delete(urlGenres + '/:id', async (req, res, ctx) => {
+    const id = req.params.id;
+    const genreIndex = Genres.data.findIndex((genre) => genre.id === id);
+
+    Genres.data.splice(genreIndex, 1);
+
+    return res(ctx.json({ message: 'Delete genre sucessfully' }));
+  }),
 ];
